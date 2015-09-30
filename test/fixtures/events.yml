@@ -1,0 +1,31 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id            :integer          not null, primary key
+#  event_type_id :integer
+#  email_type_id :integer
+#  created_at    :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+barney_sent:
+  event_type: send
+  email_type: shipment
+  created_at: 2015-09-30 18:00:02
+
+tom_user_confirmation:
+  event_type: click
+  email_type: user_confirmation
+  created_at: 2015-09-30 18:00:03
+
+vitor_open_shipment:
+  event_type: click
+  email_type: user_confirmation
+  created_at: 2015-09-30 18:00:04
