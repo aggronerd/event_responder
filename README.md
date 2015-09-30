@@ -1,28 +1,36 @@
-== README
+# Event webhook responder
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**Author:** Gregory Doran <greg@gregorydoran.co.uk>.
 
-Things you may want to cover:
+## Requirements
 
-* Ruby version
+- Ruby 2.2.3
+- Bundler
 
-* System dependencies
+It is suggested to use [RVM](https://rvm.io/).
 
-* Configuration
+## Setup
 
-* Database creation
+Before running the webserver for testing you need to install the requirements above then you can install the dependencies using bundler.
 
-* Database initialization
+    bundle install
+    
+## Running the server
 
-* How to run the test suite
+To run the development server run:
 
-* Services (job queues, cache servers, search engines, etc.)
+    rails s
+    
+## Running the tests
 
-* Deployment instructions
+To test the system run the following:
 
-* ...
+    rake test
+    
+## Usage
 
+TODO: explain usage
+    
+## Storage backend
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+The development and test environment uses SQLite3 because it is quick to set up. In any production environment
