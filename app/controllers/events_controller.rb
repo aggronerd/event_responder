@@ -33,7 +33,7 @@ class EventsController < ApplicationController
 private
 
   def rates_for(email_type, event_type, total_sent)
-    (Event.with_event_type(event_type).with_email_type(email_type).count.to_f / total_sent.to_f).round(2)
+    ((Event.with_event_type(event_type).with_email_type(email_type).count.to_f / total_sent.to_f)*100.0).round(2)
   end
 
   def json_request?

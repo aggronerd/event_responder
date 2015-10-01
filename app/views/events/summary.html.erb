@@ -1,19 +1,19 @@
 <h1>Summary</h1>
 <h2>Total numbers for each event</h2>
-<ul>
+<ul class="count">
   <%= render 'value_item', value: number_with_delimiter(@sent_count), key: 'Emails sent' %>
   <%= render 'value_item', value: number_with_delimiter(@open_count), key: 'Emails opened' %>
   <%= render 'value_item', value: number_with_delimiter(@click_count), key: 'Emails clicked' %>
 </ul>
 <h2>Open rates per email type</h2>
-<ul>
+<ul class="open-rates">
   <% @email_type_open_rates.each_pair do |key, value| %>
-    <%= render 'value_item', value: "#{value}%", key: key %>
+    <%= render 'value_item', value: (value.nil? ? 'N/A' : "#{value}%"), key: key %>
   <% end %>
 </ul>
 <h2>Click rates per email type</h2>
-<ul>
+<ul class="click-rates">
   <% @email_type_click_rates.each_pair do |key, value| %>
-    <%= render 'value_item', value: "#{value}%", key: key %>
+    <%= render 'value_item', value: (value.nil? ? 'N/A' : "#{value}%"), key: key %>
   <% end %>
 </ul>

@@ -18,3 +18,6 @@ shipment:
 
 user_confirmation:
   name: UserConfirmation
+
+activation:
+  name: UserActivation
