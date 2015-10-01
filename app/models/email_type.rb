@@ -12,4 +12,9 @@ class EmailType < ActiveRecord::Base
 
   validates :name, presence: true, length: {maximum: 128}
 
+  def get_rate(event_type)
+    Event.where(event_type: event_type, email_type: self).count
+    Event.where(event_type: sent, email_type: self).count
+  end
+
 end

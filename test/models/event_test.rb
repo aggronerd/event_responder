@@ -2,10 +2,9 @@
 #
 # Table name: events
 #
-#  id            :integer          not null, primary key
-#  event_type_id :integer
 #  email_type_id :integer
 #  created_at    :datetime
+#  event_type    :integer
 #
 
 require 'test_helper'
@@ -13,7 +12,7 @@ require 'test_helper'
 class EventTest < ActiveSupport::TestCase
 
   setup do
-    @event = Event.new(event_type: event_types(:send), email_type: email_types(:shipment))
+    @event = Event.new(event_type: Event::TYPE_CLICK, email_type: email_types(:shipment))
     @event.save!
   end
 
@@ -21,8 +20,14 @@ class EventTest < ActiveSupport::TestCase
     assert_operator @event.created_at, :>, 5.seconds.ago
   end
 
-  test 'association: event_type' do
-    assert_equal EventType, @event.event_type.class
+  test 'validation: event_type required' do
+    assert_not @event.update(event_type: nil)
+  end
+
+  test 'validation: event_type inclusion' do
+    assert_not @event.update(event_type: 8)
+    assert_not @event.update(event_type: 4)
+    assert @event.update(event_type: Event::TYPE_CLICK)
   end
 
   test 'association: email_type' do
@@ -35,17 +40,12 @@ class EventTest < ActiveSupport::TestCase
       assert event.save
     end
     assert_equal email_types(:shipment), event.email_type
-    assert_equal event_types(:open), event.event_type
+    assert_equal Event::TYPE_OPEN, event.event_type
   end
 
-  test 'from_json: with new event type' do
-    assert_difference 'EventType.count', 1 do
-      assert_difference 'Event.count', 1 do
-        event = Event.from_json('{"Address":"vitor@lostmy.name","EmailType":"Shipment","Event":"view","Timestamp":1443645841}')
-        assert event.save
-        assert_equal email_types(:shipment), event.email_type
-        assert_equal 'view', event.event_type.name
-      end
+  test 'from_json: with unknown event type' do
+    assert_no_difference 'Event.count' do
+      assert_nil Event.from_json('{"Address":"vitor@lostmy.name","EmailType":"Shipment","Event":"view","Timestamp":1443645841}')
     end
   end
 
@@ -55,7 +55,7 @@ class EventTest < ActiveSupport::TestCase
         event = Event.from_json('{"Address":"vitor@lostmy.name","EmailType":"Bulletin","Event":"open","Timestamp":1443645841}')
         assert event.save
         assert_equal 'Bulletin', event.email_type.name
-        assert_equal event_types(:open), event.event_type
+        assert_equal Event::TYPE_OPEN, event.event_type
       end
     end
   end
@@ -70,6 +70,19 @@ class EventTest < ActiveSupport::TestCase
 
   test 'from_json: invalid json' do
     assert_nil Event.from_json('{"Address":')
+  end
+
+  test 'with_event_type scope' do
+    assert 1, Event.with_event_type(Event::TYPE_OPEN).count
+  end
+
+  test 'with_email_type scope' do
+    assert 1, Event.with_email_type(email_types(:shipment)).count
+  end
+
+  test 'scope combination' do
+    assert 1, Event.with_email_type(email_types(:shipment)).with_event_type(Event::TYPE_CLICK).count
+    assert 1, Event.with_email_type(email_types(:shipment)).with_event_type(Event::TYPE_OPEN).count
   end
 
 end

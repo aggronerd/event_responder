@@ -6,6 +6,10 @@ class EventsControllerTest < ActionController::TestCase
     assert_routing({path: '/events', method: :post}, {controller: 'events', action: 'record'})
   end
 
+  test 'Routing: summary' do
+    assert_routing '/events', controller: 'events', action: 'summary'
+  end
+
   test 'record: valid JSON' do
     assert_difference 'Event.count', 1 do
       post :record, '{"Address":"barney@lostmy.name","EmailType":"Shipment","Event":"send","Timestamp":1432820696}', format: :json
@@ -25,6 +29,11 @@ class EventsControllerTest < ActionController::TestCase
       post :record, '{"Address":"barney@lostmy.name","Timestamp":1432820696}', format: :json
     end
     assert_response :bad_request
+  end
+
+  test 'summary: displays' do
+    get :summary
+    assert_response :success
   end
 
 end

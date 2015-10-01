@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930200135) do
+ActiveRecord::Schema.define(version: 20150930224123) do
 
   create_table "email_types", force: :cascade do |t|
     t.string "name", limit: 128, null: false
@@ -19,19 +19,13 @@ ActiveRecord::Schema.define(version: 20150930200135) do
 
   add_index "email_types", ["name"], name: "index_email_types_on_name"
 
-  create_table "event_types", force: :cascade do |t|
-    t.string "name", limit: 128, null: false
-  end
-
-  add_index "event_types", ["name"], name: "index_event_types_on_name"
-
   create_table "events", id: false, force: :cascade do |t|
-    t.integer  "event_type_id"
     t.integer  "email_type_id"
     t.datetime "created_at"
+    t.integer  "event_type"
   end
 
+  add_index "events", ["email_type_id", "event_type"], name: "index_events_on_email_type_id_and_event_type"
   add_index "events", ["email_type_id"], name: "index_events_on_email_type_id"
-  add_index "events", ["event_type_id"], name: "index_events_on_event_type_id"
 
 end

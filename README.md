@@ -45,12 +45,15 @@ environment you can point the test script to the server running on port 3000
     
 ### Viewing the summarised data
 
-TODO
+To view the summarised data collected on your development environment go to [http://localhost:3000](http://localhost:3000).
     
 ## Notes
 
 - Email address are never stored - we don't need them and they could be considered confidential information adding a potential security risk.
 - Timestamps are ignored - they are not required.
+- Interface isn't pretty, perhaps implementing something simple like Bootstrap would improve the appearance of the tool.
+- Graphs might improve it's use as a dashboard.
+- It is assumed that data isn't required to be measured over time and instead all data historically is summarised.
     
 ### Storage backend
 

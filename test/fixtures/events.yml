@@ -2,10 +2,9 @@
 #
 # Table name: events
 #
-#  id            :integer          not null, primary key
-#  event_type_id :integer
 #  email_type_id :integer
 #  created_at    :datetime
+#  event_type    :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -16,16 +15,16 @@
 #
 
 barney_sent:
-  event_type: send
+  event_type: 3
   email_type: shipment
   created_at: 2015-09-30 18:00:02
 
 tom_user_confirmation:
-  event_type: click
+  event_type: 1
   email_type: user_confirmation
   created_at: 2015-09-30 18:00:03
 
 vitor_open_shipment:
-  event_type: click
+  event_type: 2
   email_type: user_confirmation
   created_at: 2015-09-30 18:00:04
