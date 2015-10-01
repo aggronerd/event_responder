@@ -1,13 +1,30 @@
 # Event webhook responder
 
-**Author:** Gregory Doran <greg@gregorydoran.co.uk>.
+**Author:** Gregory Doran (aka. Aggronerd).
 
 ## Requirements
 
 - Ruby 2.2.3
 - Bundler
 
-It is suggested to use [RVM](https://rvm.io/).
+It is suggested to use [RVM](https://rvm.io/) for managing Ruby versions and gemsets.
+
+### RVM setup (optional)
+
+Install RVM if you haven't already. Install the Ruby version:
+
+    rvm install 2.2.3
+    
+Use that ruby version and create a new gemset for this project:
+
+    rvm use 2.2.3
+    rvm gemset create responder
+    rvm gemset use responder
+   
+From the working directory install bundler and install the gems:
+
+    gem install bundler
+    bundle install
 
 ## Setup
 
